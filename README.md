@@ -1,0 +1,6 @@
+# auth-jwt
+
+
+JWT 
+ROLE_USER
+ROLE_ADMIN
