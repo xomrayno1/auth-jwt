@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tampro.entity.Category;
 import com.tampro.entity.Product;
+import com.tampro.entity.Users;
 import com.tampro.repository.CategoryRepository;
 import com.tampro.repository.ProductRepository;
+import com.tampro.repository.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -19,6 +22,8 @@ public class HelloController {
 	ProductRepository productRepo;
 	@Autowired
 	CategoryRepository cateRepo;
+	@Autowired
+	UserRepository userRepo;
 
 	@GetMapping("/hello")
 	public String hello() {
@@ -33,5 +38,10 @@ public class HelloController {
 	@GetMapping("/category")
 	public List<Category> category() {
 		return cateRepo.findAll();
+	}
+	@GetMapping("/users/{id}")
+	public Users getUser(@PathVariable("id") long id) {
+		Users users = 	userRepo.findById(id).get();
+		return users;
 	}
 }
