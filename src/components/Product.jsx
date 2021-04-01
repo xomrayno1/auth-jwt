@@ -4,6 +4,7 @@ function Product(props) {
     return (
         <div>
             <h1>Products</h1>
+            
         </div>
     );
 }

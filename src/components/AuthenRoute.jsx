@@ -1,15 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
-    BrowserRouter as Router,
-    Switch,
     Route,
-    Link,
-    useHistory,
     Redirect
   } from "react-router-dom";
 function AuthenRoute(props) {
-    const {isLogin} = props;
-    if(isLogin.login){
+    const userLogin = useSelector(state => state.auth)
+    
+    if(userLogin.isLogin){
         return (
             <Route  {...props}  >{props.children}</Route>
          );
