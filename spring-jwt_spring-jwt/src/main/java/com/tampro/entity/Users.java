@@ -26,6 +26,8 @@ public class Users {
 	
 	private List<Roles> roles;
 	
+	private String images;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -59,6 +61,12 @@ public class Users {
 	}
 	public void setRoles(List<Roles> roles) {
 		this.roles = roles;
+	}
+	public String getImages() {
+		return images;
+	}
+	public void setImages(String images) {
+		this.images = images;
 	}
 	
 	

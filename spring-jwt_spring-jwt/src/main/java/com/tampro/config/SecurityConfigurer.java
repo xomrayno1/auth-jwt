@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -56,9 +57,10 @@ public class SecurityConfigurer  extends WebSecurityConfigurerAdapter{
 	        // We don't need CSRF for this example
 	        httpSecurity.csrf().disable().cors().and()
 	                // dont authenticate this particular request
-	                .authorizeRequests().antMatchers("/authenticate", "/register")
-	                .permitAll().
-	                antMatchers("/products").hasRole("ADMIN")
+	                .authorizeRequests()
+	                .antMatchers("/authenticate","/images/**","/upload/**", "/register")
+	                .permitAll()
+	                .antMatchers("/products").hasRole("ADMIN")
 	                .antMatchers("/category").hasRole("USER")
 	                // all other requests need to be authenticated
 	                .anyRequest().authenticated().and().
@@ -75,5 +77,7 @@ public class SecurityConfigurer  extends WebSecurityConfigurerAdapter{
 	        // luồng chạy -> Request filter nếu token k ok => authencationEntryPoint
 	    }
 	    
+	    
+	   
 	  
 }

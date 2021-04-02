@@ -1,5 +1,7 @@
 package com.tampro.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.tampro.entity.Roles;
 import com.tampro.entity.Users;
 import com.tampro.model.UserDTO;
+import com.tampro.model.UserUpload;
 import com.tampro.repository.RoleRepository;
 import com.tampro.repository.UserRepository;
 
@@ -57,5 +60,14 @@ public class JwtUserDetailsService implements UserDetailsService{
         	newUser.setRoles(lists);
         }
         return userRepository.save(newUser);
+    }
+    public Users uploadFile(UserUpload userUpload) throws IllegalStateException, IOException {
+    	//upload file 
+    	final String URL_DIR = "C:\\Users\\Administrator\\git\\auth-jwt\\spring-jwt_spring-jwt\\src\\main\\resources\\static\\upload\\";
+    	Users users = userRepository.findByUsername(userUpload.getUsername());
+    	String imagesName = System.currentTimeMillis()+userUpload.getMultipartFile().getOriginalFilename();
+    	userUpload.getMultipartFile().transferTo(new File(URL_DIR + imagesName));
+    	users.setImages("upload/"+imagesName);
+    	return userRepository.save(users);
     }
 }
