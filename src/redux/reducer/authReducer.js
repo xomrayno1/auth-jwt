@@ -101,8 +101,8 @@ export default function authReducer(state = newsState, action){
                 isLogin : true,
                 user: {
                     username: payload.username,
-                    roles : payload.roles,
-                    images : payload.images
+                    roles: payload.roles,
+                    images: payload.images
                 }
             }
         case UPLOAD_FILE_FAILED:

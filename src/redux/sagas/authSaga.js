@@ -35,7 +35,7 @@ function* uploadFile({payload}){
         
         const response = yield call(authAPI.uploadFile, payload);
          
-        yield put({type: UPLOAD_FILE_SUCCESS,response})
+        yield put({type: UPLOAD_FILE_SUCCESS,payload: response})
     } catch (error) {
         yield put({type: UPLOAD_FILE_FAILED, payload : error})
     }
