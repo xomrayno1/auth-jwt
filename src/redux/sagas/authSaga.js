@@ -1,5 +1,5 @@
 import {takeEvery,put,call} from 'redux-saga/effects'
-import {LOGIN_FAILED,LOGIN_SUCCESS,LOGIN_REQUEST, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILED } from '../../utils/Constant'
+import {LOGIN_FAILED,LOGIN_SUCCESS,LOGIN_REQUEST, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILED, UPLOAD_FILE, UPLOAD_FILE_SUCCESS, UPLOAD_FILE_FAILED } from '../../utils/Constant'
 import authAPI from '../../api/authApi'
 
 function* login({payload}){
@@ -11,7 +11,8 @@ function* login({payload}){
             user: {
                 username: token.username,
                 roles : token.roles,
-                jwt : token.token
+                jwt : token.token,
+                images : token.images
             }
         }
         localStorage.setItem('auth',JSON.stringify(auth));
@@ -29,9 +30,20 @@ function* register({payload}){
         
     }
 }
+function* uploadFile({payload}){
+    try {
+        
+        const response = yield call(authAPI.uploadFile, payload);
+         
+        yield put({type: UPLOAD_FILE_SUCCESS,response})
+    } catch (error) {
+        yield put({type: UPLOAD_FILE_FAILED, payload : error})
+    }
+}
 
 export default function* authSaga(){
    yield takeEvery(LOGIN_REQUEST, login);
    yield takeEvery(REGISTER_REQUEST, register);
+   yield takeEvery(UPLOAD_FILE, uploadFile);
 }
  

@@ -6,7 +6,6 @@ import {
   } from "react-router-dom";
 function AuthenRoute(props) {
     const userLogin = useSelector(state => state.auth)
-    
     if(userLogin.isLogin){
         return (
             <Route  {...props}  >{props.children}</Route>

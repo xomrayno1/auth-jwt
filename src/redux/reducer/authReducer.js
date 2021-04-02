@@ -5,7 +5,10 @@ import {
     LOG_OUT,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    REGISTER_FAILED
+    REGISTER_FAILED,
+    UPLOAD_FILE,
+    UPLOAD_FILE_SUCCESS,
+    UPLOAD_FILE_FAILED
 } from '../../utils/Constant'
 
 const initalState = {
@@ -14,7 +17,8 @@ const initalState = {
     user : {
         username : '',
         roles : [],
-        jwt : ''
+        jwt : '',
+        images: ''
     },
     error : ''
 }
@@ -57,8 +61,8 @@ export default function authReducer(state = newsState, action){
                 isLogin : true,
                 user: {
                     username: payload.username,
-                    roles : payload.roles
-                     
+                    roles : payload.roles,
+                    images : payload.images
                 }
             }
         case LOGIN_FAILED:
@@ -85,6 +89,28 @@ export default function authReducer(state = newsState, action){
                 error: payload
             }
         }
+        case UPLOAD_FILE:
+            return {
+                ...state,
+                loading: true,
+            }
+        case UPLOAD_FILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isLogin : true,
+                user: {
+                    username: payload.username,
+                    roles : payload.roles,
+                    images : payload.images
+                }
+            }
+        case UPLOAD_FILE_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error : payload
+            }
         default :
             return state;
     }

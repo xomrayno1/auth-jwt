@@ -17,18 +17,21 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Product from './components/Product'
 import { useDispatch, useSelector } from 'react-redux';
 import Register from './components/Register';
- 
+import AccessDenied from './components/AccessDenied';
+import {notification} from 'antd' 
 
+ 
 function App() {
   const dispatch =   useDispatch();
-  const history = useHistory();
   const auth = useSelector(state =>state.auth);
+  const {error} = useSelector(state=>state.product);
+
   function handleLogout(){
     dispatch({type: LOG_OUT})
-    localStorage.removeItem('accessToken');
     localStorage.removeItem('auth');
-}
+  }
  
+   
   return (
     <div className="App">
        {auth.isLogin && <button onClick={handleLogout}>Logout</button>}
@@ -42,6 +45,7 @@ function App() {
             <AuthenRoute  path="/products" >
               <Product/>
             </AuthenRoute>
+            <Route   path="/acess-denied" component={AccessDenied}/>
           </>
       </Router>
     </div>
